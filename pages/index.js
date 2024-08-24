@@ -17,8 +17,8 @@ export default function Home() {
         <Image 
           src="/logo.png"  
           alt="Logo"
-          width={100}  // Adjust the width as needed
-          height={100}  // Adjust the height as needed
+          width={80}  // Adjust the width as needed
+          height={80}  // Adjust the height as needed
         />
       </div>
         <nav className="flex items-center space-x-6"> {/* Reduced spacing between nav items */}
@@ -40,14 +40,14 @@ export default function Home() {
             eCommerce Development 
           </h1>
           <p className="text-2xl ml-20 mb-6"> {/* Increased font size and reduced bottom margin */}
-            Empowering eCommerce businesses for 15 years
+          Empowering the transition from Web2 to Web3
           </p>
           <a
             href="#"
             onClick={handleClick}
             className="cta-button text-white px-8 py-4 rounded-full inline-flex items-center text-xl bg-gradient-to-r from-[#00FFA3] via-[#03E1FF] to-[#DC1FFF] ml-20"
           >
-            Get a project price <span className="ml-2">&#8594;</span>
+            Swap Now<span className="ml-2">&#8594;</span>
           </a>
         </div>
         <div className="hero-image w-full lg:w-1/2 h-auto flex justify-center lg:justify-end">

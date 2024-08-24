@@ -52,7 +52,7 @@ export default function SolanaPriceGraph() {
   return (
     <div style={{ height: '150px', width: '100%' }}>
         <h2 className="text-lg font-medium mb-4">
-            Solana Price: <span>$140.80</span> <span style={{ color: 'green' }}>+3%</span>
+            SOL/ETH: <span>0.0576</span> 
         </h2>
         <div style={{ height: '150px', width: '90%', backgroundColor: '#2c2c3d' }}>
             <Line data={data} options={options} />

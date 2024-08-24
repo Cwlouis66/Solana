@@ -211,6 +211,8 @@ const Home = () => {
   return (
     <>
       <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, zIndex: -1 }} />
+      <br />
+      <br />
       <div style={{ 
         margin: '0 auto', 
         padding: '32px 16px', 
