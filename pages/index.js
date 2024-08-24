@@ -41,13 +41,12 @@ export default function Home() {
           />
         </div>
         <nav className="flex items-center space-x-6">
-          <a href="#" className="text-white">Projects</a>
-          <a href="#" className="text-white">Blog</a>
-          <a href="#" className="text-white relative">Career</a>
+          <a href="/chat" className="text-white">Home</a>
+          <a href="#" className="text-white relative">Rewards</a>
+          <a href="#" className="text-white">Scan</a>
           <a href="#" className="text-white">About Us</a>
-          <a href="#" className="text-white">Contacts</a>
           <div className="flex space-x-2">
-            <a href="#" className="text-white">UA</a>
+            <a href="#" className="text-white">CN</a>
             <a href="#" className="text-green-500">EN</a>
           </div>
         </nav>

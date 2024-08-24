@@ -58,7 +58,7 @@ const ChatBox = () => {
                     <>
                       <p style={styles.messageText}>{msg.text}</p>
                       <img
-                        src="./Img/crab.png"
+                        src="/user.png"
                         alt="profile"
                         style={styles.profilePic}
                       />
@@ -67,7 +67,7 @@ const ChatBox = () => {
                   {msg.sender === 'bot' && (
                     <>
                       <img
-                        src="./Img/bot.jpg"
+                        src="/bot.png"
                         alt="profile"
                         style={styles.profilePic}
                       />
@@ -169,13 +169,12 @@ const styles = {
     marginRight: '10px',
   },
   messageText: {
-    backgroundColor: '#212652',
+    backgroundColor: 'rgb(199, 199, 199)',
     padding: '10px',
     borderRadius: '12px',
     maxWidth: '70%',
     wordBreak: 'break-word',
-    border: '1px solid #19A4F2',
-    color: '#FFFFFF',
+    color: 'black',
   },
   inputContainer: {
     display: 'flex',
