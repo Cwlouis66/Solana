@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Popup from '../components/Popup';
+import ChatBot from '@/components/ChatBox';
 import Swap from '@/components/Swap';
-import SolanaPriceGraph from '@/components/SolanaPriceGraph';
 
 const Home = () => {
   const [message, setMessage] = useState('');
@@ -210,6 +209,7 @@ const Home = () => {
 
   return (
     <>
+          <ChatBot />
       <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, zIndex: -1 }} />
       <br />
       <br />

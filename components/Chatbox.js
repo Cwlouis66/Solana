@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 
-const ChatBox = () => {
+const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -210,4 +210,4 @@ const styles = {
   }
 };
 
-export default ChatBox;
+export default ChatBot;
