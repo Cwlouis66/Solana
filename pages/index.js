@@ -37,7 +37,7 @@ export default function Home() {
       <div className="relative flex justify-between items-center w-full flex-wrap lg:flex-nowrap">
         <div className="hero-text text-white w-lg z-10 mb-8 lg:mb-0">
           <h1 className="text-6xl font-bold  ml-20 mb-2"> {/* Increased font size and reduced bottom margin */}
-            eCommerce Development 
+            All in One AI Crypto Assistant
           </h1>
           <p className="text-2xl ml-20 mb-6"> {/* Increased font size and reduced bottom margin */}
           Empowering the transition from Web2 to Web3
