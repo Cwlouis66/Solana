@@ -109,7 +109,7 @@ const createParticles = () => {
 
   const material = new THREE.PointsMaterial({
     color: 0xffffff,
-    size: 0.025, // Adjust particle size for better visibility
+    size: 0.05, // Adjust particle size for better visibility
     transparent: true,
     opacity: 1.0,
   });
