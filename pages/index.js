@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import Popup from '../components/Popup';
 
 export default function Home() {
   const [message, setMessage] = useState('');
   const [response, setResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,11 +26,26 @@ export default function Home() {
 
       const data = await res.json();
       setResponse(data.response.replace(/\*\*/g, '').replace(/\n/g, '<br />'));
+
+      setTimeout(() => {
+        setIsPopupVisible(true);
+      }, 5000);
+
     } catch (err) {
       setError('An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleConfirm = () => {
+    setIsPopupVisible(false);
+    setResponse('The fund will be held until the rate increases.'); // Output message
+  };
+
+  const handleCancel = () => {
+    setIsPopupVisible(false);
+    setResponse('The fund will be converted immediately.'); // Output message
   };
 
   return (
@@ -58,9 +75,16 @@ export default function Home() {
           <h2 className="text-xl font-semibold mb-2">AI Assistant:</h2>
           <p
             className="text-gray-700"
-            dangerouslySetInnerHTML={{ __html: response }} // Handle newlines as <br /> tags
+            dangerouslySetInnerHTML={{ __html: response }}
           ></p>
         </div>
+      )}
+      {isPopupVisible && (
+        <Popup
+          message="Do you want to hold the funds until the rate increases?"
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+        />
       )}
     </div>
   );
