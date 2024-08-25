@@ -44,6 +44,13 @@ const Chatbot = () => {
     }
   };
 
+  // Function to handle key press event
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
+
   return (
     <>
       <img src="/chat.png" onClick={toggleChatBox} style={styles.chatButton} />
@@ -82,6 +89,7 @@ const Chatbot = () => {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown} // Add onKeyDown event
                 style={styles.input}
                 placeholder="Type a message..."
               />
@@ -145,7 +153,6 @@ const styles = {
     padding: '10px',
     overflowY: 'auto',
     background: 'rgb(30, 33, 40)',
-
   },
   userMessage: {
     display: 'flex',
@@ -210,4 +217,4 @@ const styles = {
   }
 };
 
-export default ChatBot;
+export default Chatbot;

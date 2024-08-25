@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import ChatBot from '@/components/ChatBox';
+import ChatBot from '../components/Chatbox';
 import Swap from '@/components/Swap';
 
 const Home = () => {
