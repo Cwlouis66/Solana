@@ -275,7 +275,7 @@ const Home = () => {
 
   return (
     <>
-          <ChatBot />
+      <ChatBot />
       <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, zIndex: -1 }} />
       <br />
       <br />
@@ -284,8 +284,8 @@ const Home = () => {
         padding: '32px 16px', 
         maxWidth: '60%', 
         position: 'relative',
-        backgroundColor: '#1E2128', // Dark background
-        color: '#FFFFFF', // White text
+        backgroundColor: '#1E2128',
+        color: '#FFFFFF',
         borderRadius: '8px',
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
       }}>
@@ -294,7 +294,7 @@ const Home = () => {
           fontWeight: 'bold', 
           marginBottom: '24px', 
           textAlign: 'center', 
-          color: '#c7c7c7' // Yellow color for the title
+          color: '#c7c7c7'
         }}>AI Crypto Swap Assistant</h1>
         <form onSubmit={handleSubmit} style={{ marginBottom: '24px' }}>
           <div style={{ display: 'flex' }}>
@@ -306,7 +306,7 @@ const Home = () => {
               style={{
                 flexGrow: 1,
                 padding: '12px',
-                backgroundColor: '#2C3038', // Darker input background
+                backgroundColor: '#2C3038',
                 color: '#FFFFFF',
                 border: '1px solid #3D4148',
                 borderRadius: '4px 0 0 4px',
@@ -317,7 +317,7 @@ const Home = () => {
               type="submit"
               disabled={isLoading}
               style={{
-                backgroundColor: '#3DACF7', // Blue button color
+                backgroundColor: '#3DACF7',
                 color: 'white',
                 padding: '12px 24px',
                 borderRadius: '0 4px 4px 0',
@@ -333,19 +333,46 @@ const Home = () => {
           <div style={{ 
             padding: '16px', 
             borderRadius: '8px', 
-            backgroundColor: '#2C3038', // Darker background for response
+            backgroundColor: '#2C3038',
             color: '#FFFFFF',
             textAlign: 'left' 
           }}>
             <p dangerouslySetInnerHTML={{ __html: response }}></p>
             <Swap/>
+            <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between' }}>
+              <button 
+                style={{
+                  backgroundColor: '#3DACF7',
+                  color: 'white',
+                  padding: '10px 20px',
+                  borderRadius: '4px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  width: '48%'
+                }}
+              >
+                Confirm Swap
+              </button>
+              <button 
+                style={{
+                  backgroundColor: '#6c757d',
+                  color: 'white',
+                  padding: '10px 20px',
+                  borderRadius: '4px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  width: '48%'
+                }}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         )}
       </div>
     </>
   );
-};
-
+}
 export default function App() {
   return (
     <ThirdwebProvider client={client}>
