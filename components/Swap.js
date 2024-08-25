@@ -1,11 +1,23 @@
 import React, { useState } from 'react';
 import SolanaPriceGraph from './SolanaPriceGraph';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { useWallet, useConnection } from '@solana/wallet-adapter-react';
+import { SystemProgram, PublicKey, Transaction } from '@solana/web3.js';
+import { ThirdwebProvider, ConnectButton, useActiveAccount } from "thirdweb/react";
+import { createWallet } from "thirdweb/wallets";
+import { ethers } from 'ethers';
+import { client } from '../utils/constants';
+
+const wallets = [
+  createWallet("io.metamask"),
+  createWallet("com.coinbase.wallet"),
+];
 
 const Swap = () => {
   const [payingCurrency, setPayingCurrency] = useState('SOL');
   const [payingAmount, setPayingAmount] = useState('');
   const [receivingCurrency, setReceivingCurrency] = useState('ETH');
-  const [solPrice, setSolPrice] = useState(140.80);
+  const exchangeRate = 0.05725527; // 1 SOL = 0.05725527 ETH
 
   const currencies = ['ETH', 'SOL', 'USDC', 'BTC'];
 
@@ -18,28 +30,33 @@ const Swap = () => {
 
   const calculateReceivedAmount = () => {
     if (!payingAmount || isNaN(payingAmount)) return '0';
-    return (parseFloat(payingAmount) / solPrice).toFixed(10);
+    if (payingCurrency === 'SOL' && receivingCurrency === 'ETH') {
+      return (parseFloat(payingAmount) * exchangeRate).toFixed(8);
+    } else if (payingCurrency === 'ETH' && receivingCurrency === 'SOL') {
+      return (parseFloat(payingAmount) / exchangeRate).toFixed(8);
+    }
+    return payingAmount; // For other currency pairs, return the same amount (you may want to add more exchange rates)
   };
 
   const CurrencySelector = ({ value, onChange, currencies }) => (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <img 
-          src={currencyLogos[value]} 
+        <img
+          src={currencyLogos[value]}
           alt={`${value} logo`}
-          style={{ 
-            width: '24px', 
-            height: '24px', 
-            marginRight: '8px' 
-          }} 
+          style={{
+            width: '24px',
+            height: '24px',
+            marginRight: '8px'
+          }}
         />
         <select
           value={value}
           onChange={onChange}
-          style={{ 
-            backgroundColor: 'transparent', 
-            color: 'white', 
-            border: 'none', 
+          style={{
+            backgroundColor: 'transparent',
+            color: 'white',
+            border: 'none',
             fontSize: '1rem',
             appearance: 'none'
           }}
@@ -51,20 +68,6 @@ const Swap = () => {
       </div>
       <span style={{ color: '#a1a1a1' }}>▼</span>
     </div>
-  );
-
-  const ConnectWalletButton = () => (
-    <button style={{
-      backgroundColor: '#3f4c6b',
-      color: 'white',
-      border: 'none',
-      borderRadius: '4px',
-      padding: '8px 12px',
-      fontSize: '0.9rem',
-      cursor: 'pointer'
-    }}>
-      Connect wallet
-    </button>
   );
 
   return (
@@ -79,7 +82,7 @@ const Swap = () => {
           <div style={{ marginBottom: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
               <p style={{ margin: '0', fontSize: '0.9rem', color: '#a1a1a1' }}>You're Paying</p>
-              <ConnectWalletButton />
+              <WalletMultiButton />
             </div>
             <div style={{ backgroundColor: 'black', borderRadius: '8px', overflow: 'hidden' }}>
               <CurrencySelector
@@ -92,12 +95,12 @@ const Swap = () => {
                 value={payingAmount}
                 onChange={(e) => setPayingAmount(e.target.value)}
                 placeholder="Enter amount"
-                style={{ 
-                  backgroundColor: 'transparent', 
-                  color: '#a1a1a1', 
-                  border: 'none', 
-                  fontSize: '1.2rem', 
-                  width: '100%', 
+                style={{
+                  backgroundColor: 'transparent',
+                  color: '#a1a1a1',
+                  border: 'none',
+                  fontSize: '1.2rem',
+                  width: '100%',
                   padding: '10px',
                   outline: 'none'
                 }}
@@ -110,7 +113,18 @@ const Swap = () => {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
               <p style={{ margin: '0', fontSize: '0.9rem', color: '#a1a1a1' }}>To Receive</p>
-              <ConnectWalletButton />
+              <ConnectButton
+                client={client}
+                wallets={wallets}
+                theme="dark"
+                connectModal={{ size: "wide" }}
+                detailsModal={{
+                  payOptions: {
+                    buyWithFiat: false,
+                    buyWithCrypto: false,
+                  },
+                }}
+              />
             </div>
             <div style={{ backgroundColor: 'black', borderRadius: '8px', overflow: 'hidden' }}>
               <CurrencySelector
