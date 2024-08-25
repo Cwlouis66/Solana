@@ -66,7 +66,7 @@ export default function Home() {
             className="cta-button text-white px-8 py-4 rounded-full inline-flex items-center text-xl bg-gradient-to-r from-[#2cbb87] via-[#08b4cb] to-[#DC1FFF] ml-20"
             style={{ minWidth: '240px', justifyContent: 'center' }}
           >
-            <span className="relative" style={{ width: '60px', display: 'inline-block', textAlign: 'right',fontWeight: 'extrabold' }}>
+            <span className="relative" style={{ width: '60px', display: 'inline-block', textAlign: 'right',fontWeight: 'bold' }}>
               <span className={`absolute inset-0 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
                 {buttonText}
               </span>
