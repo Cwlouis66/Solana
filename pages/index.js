@@ -63,17 +63,17 @@ export default function Home() {
           <a 
             href="#" 
             onClick={handleClick}
-            className="cta-button text-white px-8 py-4 rounded-full inline-flex items-center text-xl bg-gradient-to-r from-[#00FFA3] via-[#03E1FF] to-[#DC1FFF] ml-20"
+            className="cta-button text-white px-8 py-4 rounded-full inline-flex items-center text-xl bg-gradient-to-r from-[#2cbb87] via-[#08b4cb] to-[#DC1FFF] ml-20"
             style={{ minWidth: '240px', justifyContent: 'center' }}
           >
-            <span className="relative" style={{ width: '60px', display: 'inline-block', textAlign: 'right' }}>
+            <span className="relative" style={{ width: '60px', display: 'inline-block', textAlign: 'right',fontWeight: 'extrabold' }}>
               <span className={`absolute inset-0 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
                 {buttonText}
               </span>
               <span className="invisible">{actions.reduce((a, b) => a.length > b.length ? a : b)}</span>
             </span>
-            <span className="ml-2">Now</span>
-            <span className="ml-2">&#8594;</span>
+            <span className="ml-2" style={{ fontWeight: 'bold' }}>Now</span>
+            <span className="ml-2" style={{ fontWeight: 'bold' }}>&#8594;</span>
           </a>
         </div>
         <div className="hero-image w-full lg:w-1/2 h-auto flex justify-center lg:justify-end">
